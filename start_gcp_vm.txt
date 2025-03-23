@@ -1,0 +1,14 @@
+#!/bin/bash
+
+GCP_VM_NAME="gcp-vcc-a3-auto-scale-vm "
+GCP_ZONE="asia-east1-a"
+
+STATUS=$(gcloud compute instances describe $GCP_VM_NAME --zone=$GCP_ZONE --format="get(status)")
+
+if [ "$STATUS" = "TERMINATED" ]; then
+    echo "[INFO] Starting GCP VM: $GCP_VM_NAME"
+    gcloud compute instances start $GCP_VM_NAME --zone=$GCP_ZONE
+else
+    echo "[INFO] GCP VM is already running."
+Fi
+

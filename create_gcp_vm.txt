@@ -1,0 +1,12 @@
+gcloud compute instances create gcp-vcc-a3-auto-scale-vm \
+  --zone=asia-east1-a \
+  --machine-type=e2-micro \
+  --image-project=debian-cloud \
+  --image-family=debian-11 \
+  --tags=http-server \
+  --metadata=startup-script='#! /bin/bash
+    sudo apt update
+    sudo apt install -y apache2 stress
+    sudo systemctl start apache2
+    echo "<h1>GCP Auto-Scaled VM is Running</h1>" | sudo tee /var/www/html/index.html
+  '
